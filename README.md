@@ -1,3 +1,7 @@
+Grocery Store App
+It is basically a grocery store app website which is connected to mysql workbench and Spring tool suit is used to write a code in java and by using postman data is been fetched.
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
