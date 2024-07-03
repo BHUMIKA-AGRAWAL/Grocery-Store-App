@@ -1,0 +1,252 @@
+/* Navbar.css */
+
+/* Styles for the dropdown select */
+.select-wrapper {
+    position: relative;
+  }
+  
+  .select-wrapper select {
+    appearance: none;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    color: #333;
+    font-size: 1rem;
+    width: 200px;
+    outline: none;
+  }
+  
+  .select-wrapper svg {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    fill: #555;
+  }
+  
+  /* Navbar styles */
+  .navbar {
+    background-color: #1E40AF;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-brand {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-brand span {
+    margin-left: 0.5rem;
+  }
+  
+  .navbar-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .navbar-links li {
+    margin-right: 1rem;
+  }
+  
+  .navbar-links li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .navbar-links li a:hover {
+    color: #ccc;
+  }
+  
+
+  .navbar {
+    background-color: #DBEAFE; /* Light blue background color */
+    padding: 0.5rem; /* Reduced padding */
+    height: 3rem; /* Adjusted height */
+  }
+
+  /* Navbar.css */
+
+.navbar {
+    background-color: lightgreen; /* Light yellow background color */
+    padding: 0.5rem; /* Reduced padding */
+    height: 3rem; /* Adjusted height */
+  }
+  
+  .navbar-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display:block; /* Display links horizontally */
+    align-items: center; /* Align items vertically */
+  }
+  .navbar:hover {
+    background-color: #4CAF50; /* Change background color to green on hover */
+    transition: background-color 0.3s ease; /* Add transition effect */
+  }
+  
+  .navbar-links li {
+    margin-right: 1rem;
+  }
+  
+  .navbar-links li a {
+    color: #000; /* Black text color */
+    text-decoration: none;
+    padding: 0.5rem 1rem; /* Adjust padding */
+    border-radius: 0.25rem; /* Rounded corners */
+  }
+  
+  .navbar-links li a:hover {
+    background-color: lightgreen; /* Light gray background color on hover */
+  }
+  
+  /* Footer.css */
+
+.footer {
+    background-color: #333; /* Dark gray background color */
+    color: #fff; /* White text color */
+    padding: 0.5rem 0; /* Vertical padding */
+
+  }
+  .footer {
+  background-color: #333; /* Dark gray background color */
+  color: #fff; /* White text color */
+  padding: 0.5rem 0; /* Vertical padding */
+  position: fixed; /* Fixed positioning */
+  bottom: 0; /* Align to the bottom of the viewport */
+  left: 0; /* Align to the left edge of the viewport */
+  width: 100%; /* Full width */
+}
+
+  .footer-heading {
+    font-size: 1.5rem; /* Larger font size */
+    font-weight: bold; /* Bold font weight */
+  }
+  
+  .footer-info {
+    margin-bottom: 0.5rem; /* Bottom margin for contact info */
+  }
+  
+  .footer-social-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .footer-social-links li:not(:first-child) {
+    margin-left: 1rem; /* Spacing between social links */
+  }
+  
+  
+  .footer-social-links a {
+    color: #fff; /* White color for social links */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+  }
+  
+  .footer-social-links a:hover {
+    color: #ccc; /* Light gray color on hover */
+  }
+  
+  .footer-divider {
+    border-color: #555; /* Dark gray border color */
+  }
+  
+  .footer-text {
+    text-align: center; /* Center-align the copyright text */
+  }
+  
+  /* Custom styling for input boxes */
+.input-box {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #d1d5db; /* Border color */
+    border-radius: 0.25rem; /* Border radius */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transition effect for border color and box shadow */
+  }
+  
+  /* Custom styling for focused input boxes */
+  .input-box:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #4f46e5; /* Border color when focused */
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); /* Box shadow when focused */
+  }
+
+  /* Custom styling for update button */
+.update-button {
+    background-color: #3490dc; /* Light blue background color */
+    color: #fff; /* White text color */
+    padding: 0.5rem 1rem; /* Padding */
+    border: none; /* Remove border */
+    border-radius: 0.25rem; /* Border radius */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s ease; /* Transition effect */
+  }
+  
+  /* Hover effect for update button */
+  .update-button:hover {
+    background-color: #2779bd; /* Darker shade of blue on hover */
+  }
+  
+  /* Custom styling for delete button */
+  .delete-button {
+    background-color: #e53e3e; /* Red background color */
+    color: #fff; /* White text color */
+    padding: 0.5rem 1rem; /* Padding */
+    border: none; /* Remove border */
+    border-radius: 0.25rem; /* Border radius */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s ease; /* Transition effect */
+  }
+  
+  /* Hover effect for delete button */
+  .delete-button:hover {
+    background-color: #c53030; /* Darker shade of red on hover */
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column; /* Arrange form items vertically */
+    max-width: 300px; /* Adjust based on your design */
+  }
+  
+  .form-container label {
+    margin-bottom: 0.5rem; /* Add spacing between label and input */
+  }
+  
+  .form-container input {
+    padding: 0.5rem;
+    margin-bottom: 1rem; /* Add spacing between input fields */
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  
+  .save-button {
+    background-color: #4caf50; /* Green color */
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  
+  .edit-button {
+    background-color: #3498db; /* Blue color */
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
