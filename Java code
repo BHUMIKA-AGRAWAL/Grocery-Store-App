@@ -1,0 +1,1053 @@
+package com.app.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.model.GroceryInfo;
+import com.app.service.GroceryAmountsService;
+import com.app.service.GroceryInfoService;
+import com.app.service.GrocerySourceService;
+
+@RestController
+@RequestMapping("/api/groceries")
+@CrossOrigin
+public class GroceryInfoController {
+
+	@Autowired
+	private GroceryInfoService groceryInfoService;
+
+	@Autowired
+	private GroceryAmountsService groceryAmountService;
+
+	@Autowired
+	private GrocerySourceService grocerySourceservice;
+
+	
+	@GetMapping
+	
+	public ResponseEntity<List<GroceryInfo>> getAllGrocery() {
+
+		try {
+			List<GroceryInfo> groceries = groceryInfoService.getAllGroceries();
+
+			return new ResponseEntity<>(groceries, HttpStatus.OK);
+
+		} catch (Exception e) {
+
+			e.printStackTrace(); 
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping
+	public ResponseEntity<GroceryInfo> addGrocery(@RequestBody GroceryInfo grocery) {
+		try {
+			
+			GroceryInfo savedGrocery = groceryInfoService.addGrocery(grocery);
+
+		
+			return ResponseEntity.ok(savedGrocery); 
+		} catch (Exception error) {
+			
+			System.out.println("Error adding grocery: " + error.getMessage());
+
+	
+			return ResponseEntity.status(500).build(); 
+		}
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<GroceryInfo> getGroceryById(@PathVariable int id) {
+
+		try {
+
+			GroceryInfo groceryById = groceryInfoService.getGroceryById(id);
+
+			if (groceryById != null) {
+				return ResponseEntity.ok(groceryById); 
+			} else {
+				return ResponseEntity.notFound().build(); 
+			}
+
+		} catch (Exception error) {
+			
+			System.out.println("Error while Feteching the data" + error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+
+		}
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<GroceryInfo> updateMyGrocery(@PathVariable int id, @RequestBody GroceryInfo updatedGrocery) {
+
+		try {
+
+			GroceryInfo savedGrocery = groceryInfoService.updateGrocery(id, updatedGrocery);
+
+			return ResponseEntity.ok(savedGrocery);
+
+		} catch (Exception error) {
+			// Print the error for now (replace with logging later)
+			System.out.println("Error updating grocery: " + error.getMessage());
+			return ResponseEntity.status(500).build(); // Return 500 for internal server error
+
+		}
+
+	}
+	
+
+   
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteGrocery(@PathVariable int id){
+		try {
+			if(groceryInfoService.deleteGroceryById(id)) {
+				return ResponseEntity.ok("Succesfully deleted the item with item_id:"+id); 
+			}else {
+				return ResponseEntity.status(404).body("Grocery ID:"+id +" Does not Exist!");
+			}
+			
+			
+			
+		}catch(Exception error) {
+			
+		
+			System.out.println("Error while deleting the grocery:"+ error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+		}
+	}
+	
+	
+
+}
+
+
+
+
+
+-------------------------------------
+package com.app.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.model.GroceryInfo;
+import com.app.service.GroceryAmountsService;
+import com.app.service.GroceryInfoService;
+import com.app.service.GrocerySourceService;
+
+@RestController
+@RequestMapping("/api/groceries")
+@CrossOrigin
+public class GroceryInfoController {
+
+	@Autowired
+	private GroceryInfoService groceryInfoService;
+
+	@Autowired
+	private GroceryAmountsService groceryAmountService;
+
+	@Autowired
+	private GrocerySourceService grocerySourceservice;
+
+	
+	@GetMapping
+	
+	public ResponseEntity<List<GroceryInfo>> getAllGrocery() {
+
+		try {
+			List<GroceryInfo> groceries = groceryInfoService.getAllGroceries();
+
+			return new ResponseEntity<>(groceries, HttpStatus.OK);
+
+		} catch (Exception e) {
+
+			e.printStackTrace(); 
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping
+	public ResponseEntity<GroceryInfo> addGrocery(@RequestBody GroceryInfo grocery) {
+		try {
+			
+			GroceryInfo savedGrocery = groceryInfoService.addGrocery(grocery);
+
+		
+			return ResponseEntity.ok(savedGrocery); 
+		} catch (Exception error) {
+			
+			System.out.println("Error adding grocery: " + error.getMessage());
+
+	
+			return ResponseEntity.status(500).build(); 
+		}
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<GroceryInfo> getGroceryById(@PathVariable int id) {
+
+		try {
+
+			GroceryInfo groceryById = groceryInfoService.getGroceryById(id);
+
+			if (groceryById != null) {
+				return ResponseEntity.ok(groceryById); 
+			} else {
+				return ResponseEntity.notFound().build(); 
+			}
+
+		} catch (Exception error) {
+			
+			System.out.println("Error while Feteching the data" + error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+
+		}
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<GroceryInfo> updateMyGrocery(@PathVariable int id, @RequestBody GroceryInfo updatedGrocery) {
+
+		try {
+
+			GroceryInfo savedGrocery = groceryInfoService.updateGrocery(id, updatedGrocery);
+
+			return ResponseEntity.ok(savedGrocery);
+
+		} catch (Exception error) {
+			// Print the error for now (replace with logging later)
+			System.out.println("Error updating grocery: " + error.getMessage());
+			return ResponseEntity.status(500).build(); // Return 500 for internal server error
+
+		}
+
+	}
+	
+
+   
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteGrocery(@PathVariable int id){
+		try {
+			if(groceryInfoService.deleteGroceryById(id)) {
+				return ResponseEntity.ok("Succesfully deleted the item with item_id:"+id); 
+			}else {
+				return ResponseEntity.status(404).body("Grocery ID:"+id +" Does not Exist!");
+			}
+			
+			
+			
+		}catch(Exception error) {
+			
+		
+			System.out.println("Error while deleting the grocery:"+ error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+		}
+	}
+	
+	
+
+}
+
+
+-------------------------------------------------------
+
+package com.app.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.model.GroceryInfo;
+import com.app.service.GroceryAmountsService;
+import com.app.service.GroceryInfoService;
+import com.app.service.GrocerySourceService;
+
+@RestController
+@RequestMapping("/api/groceries")
+@CrossOrigin
+public class GroceryInfoController {
+
+	@Autowired
+	private GroceryInfoService groceryInfoService;
+
+	@Autowired
+	private GroceryAmountsService groceryAmountService;
+
+	@Autowired
+	private GrocerySourceService grocerySourceservice;
+
+	
+	@GetMapping
+	
+	public ResponseEntity<List<GroceryInfo>> getAllGrocery() {
+
+		try {
+			List<GroceryInfo> groceries = groceryInfoService.getAllGroceries();
+
+			return new ResponseEntity<>(groceries, HttpStatus.OK);
+
+		} catch (Exception e) {
+
+			e.printStackTrace(); 
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping
+	public ResponseEntity<GroceryInfo> addGrocery(@RequestBody GroceryInfo grocery) {
+		try {
+			
+			GroceryInfo savedGrocery = groceryInfoService.addGrocery(grocery);
+
+		
+			return ResponseEntity.ok(savedGrocery); 
+		} catch (Exception error) {
+			
+			System.out.println("Error adding grocery: " + error.getMessage());
+
+	
+			return ResponseEntity.status(500).build(); 
+		}
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<GroceryInfo> getGroceryById(@PathVariable int id) {
+
+		try {
+
+			GroceryInfo groceryById = groceryInfoService.getGroceryById(id);
+
+			if (groceryById != null) {
+				return ResponseEntity.ok(groceryById); 
+			} else {
+				return ResponseEntity.notFound().build(); 
+			}
+
+		} catch (Exception error) {
+			
+			System.out.println("Error while Feteching the data" + error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+
+		}
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<GroceryInfo> updateMyGrocery(@PathVariable int id, @RequestBody GroceryInfo updatedGrocery) {
+
+		try {
+
+			GroceryInfo savedGrocery = groceryInfoService.updateGrocery(id, updatedGrocery);
+
+			return ResponseEntity.ok(savedGrocery);
+
+		} catch (Exception error) {
+			// Print the error for now (replace with logging later)
+			System.out.println("Error updating grocery: " + error.getMessage());
+			return ResponseEntity.status(500).build(); // Return 500 for internal server error
+
+		}
+
+	}
+	
+
+   
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteGrocery(@PathVariable int id){
+		try {
+			if(groceryInfoService.deleteGroceryById(id)) {
+				return ResponseEntity.ok("Succesfully deleted the item with item_id:"+id); 
+			}else {
+				return ResponseEntity.status(404).body("Grocery ID:"+id +" Does not Exist!");
+			}
+			
+			
+			
+		}catch(Exception error) {
+			
+		
+			System.out.println("Error while deleting the grocery:"+ error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+		}
+	}
+	
+	
+
+}
+
+----------------------------------------------------
+
+package com.app.model;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="GROCERY_INFO")
+public class GroceryInfo {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ITEM_ID")
+	private Integer item_id;
+	
+	
+	@Column(name="GROCERY_NAME")
+	private String groceryName;
+	
+	public String getGroceryType() {
+		return groceryType;
+	}
+
+
+	public void setGroceryType(String groceryType) {
+		this.groceryType = groceryType;
+	}
+
+
+	@Column(name="GROCERY_TYPE")
+	private String groceryType;
+	
+	public GrocerySource getGrocerySource() {
+		return grocerySource;
+	}
+
+
+	public void setGrocerySource(GrocerySource grocerySource) {
+		this.grocerySource = grocerySource;
+	}
+
+
+	@Column(name = "COST_PER_ITEM")
+	private Double costPerItem;
+	
+	
+	
+	
+	public Integer getItem_id() {
+		return item_id;
+	}
+
+
+	public void setItem_id(Integer item_id) {
+		this.item_id = item_id;
+	}
+	
+	
+
+
+
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "GROCERY_ID")
+	private GroceryAmounts groceryAmounts;
+
+	      @ManyToOne
+	    @JoinColumn(name = "SOURCE_ID")
+	    private GrocerySource grocerySource;
+
+
+
+	public String getGroceryName() {
+		return groceryName;
+	}
+
+
+	public void setGroceryName(String groceryName) {
+		this.groceryName = groceryName;
+	}
+
+
+	public Double getCostPerItem() {
+		return costPerItem;
+	}
+
+
+	public void setCostPerItem(Double costPerItem) {
+		this.costPerItem = costPerItem;
+	}
+
+
+	public GroceryAmounts getGroceryAmounts() {
+		return groceryAmounts;
+	}
+
+
+	public void setGroceryAmounts(GroceryAmounts groceryAmounts) {
+		this.groceryAmounts = groceryAmounts;
+	}
+
+
+	@Override
+	public String toString() {
+		return "GroceryInfo [item_id=" + item_id + ", groceryName=" + groceryName + ", costPerItem=" + costPerItem
+				+ ", groceryAmounts=" + groceryAmounts + ", grocerySource=" + grocerySource + "]";
+	}
+
+
+
+	
+	
+	
+	
+
+	
+	
+
+}
+
+
+----------------------------------------------------------------
+
+
+package com.app.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.app.model.GroceryInfo;
+
+public interface GroceryInfoRepository extends JpaRepository<GroceryInfo,Integer> {
+	
+	
+	
+	
+	
+
+}
+
+
+----------------------------------------------
+
+
+package com.app.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.model.GroceryAmounts;
+import com.app.model.GroceryInfo;
+import com.app.model.GrocerySource;
+import com.app.repository.GroceryAmountsRepository;
+import com.app.repository.GroceryInfoRepository;
+import com.app.repository.GrocerySourceRepository;
+
+
+
+
+@Service
+public class GroceryInfoService {
+	
+	
+	@Autowired
+	private GroceryInfoRepository groceryInfoRepository;
+	
+	
+	@Autowired
+	private GroceryAmountsRepository groceryAmountsRepository;
+	
+	@Autowired
+	private GrocerySourceRepository grocerySourceRepository;
+	
+	
+	
+	
+	
+
+	
+	public List<GroceryInfo> getAllGroceries(){
+		GrocerySource grocerySource = new GrocerySource();
+		
+		GroceryAmounts groceryAmount = new GroceryAmounts();
+		
+		groceryAmount.getTotalCostOfItems();
+		
+		grocerySource.getStateName();
+		grocerySource.getSource_id();
+		
+		 List<GroceryInfo> groceries = groceryInfoRepository.findAll();
+		 
+		 return groceries;
+		
+		
+		
+	}
+	
+	
+//	 @Transactional
+	    public GroceryInfo addGrocery(GroceryInfo grocery) {
+		 try {
+			    grocery.getGroceryAmounts().setTotalCostOfItems(
+			        grocery.getCostPerItem() * grocery.getGroceryAmounts().getItemsAvailable()
+			    );
+
+			    grocery.setGrocerySource(manageGrocerySource(grocery.getGrocerySource()));
+
+			   return  groceryInfoRepository.save(grocery);  // Save all entities at once
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("Failed to add grocery", e);
+			}
+
+			
+}
+	 
+	 private GrocerySource manageGrocerySource(GrocerySource grocerySource) {
+		    GrocerySource existingSource = grocerySourceRepository.findByName(grocerySource.getStateName());
+
+		    if (existingSource != null) {
+		        return existingSource;
+		    } else {
+		        return grocerySourceRepository.save(grocerySource);
+		    }
+		}
+	 
+	 public GroceryInfo getGroceryById(int Id) {
+		 
+		 GroceryInfo grocery =  groceryInfoRepository.findById(Id).orElse(null);
+		 
+		 if(grocery==null) {
+			 System.out.println("Grocery with ID->"+Id +"(Not Present in the database.....)");
+		 }
+		 
+		 
+		 return grocery;
+		 
+	 }
+	 
+	 public GroceryInfo updateGrocery(int id,GroceryInfo updatedGrocery) {
+		 
+		 GroceryInfo existingGrocery = groceryInfoRepository.findById(id).orElse(null);
+		 
+		 if(existingGrocery !=null) {
+			 existingGrocery.setGroceryName(updatedGrocery.getGroceryName());
+			 
+			 existingGrocery.setCostPerItem(updatedGrocery.getCostPerItem());
+			 
+			// Update item amounts if provided
+			 if(updatedGrocery.getGroceryAmounts()!=null) {
+				 existingGrocery.getGroceryAmounts().setItemsAvailable(updatedGrocery.getGroceryAmounts().getItemsAvailable());
+				 
+				 Double  newTotalCost =updatedGrocery.getCostPerItem() * (updatedGrocery.getGroceryAmounts().getItemsAvailable());
+				 existingGrocery.getGroceryAmounts().setTotalCostOfItems(newTotalCost);
+			 }
+			 
+			 
+		           
+		        // Update grocery source if provided and state changed
+		        
+		        if(updatedGrocery.getGrocerySource() != null && existingGrocery.getGrocerySource().getSource_id() != updatedGrocery.getGrocerySource().getSource_id()) {
+		        	
+		        	int newStateId = updatedGrocery.getGrocerySource().getSource_id();
+		        	
+		        	 // Try to find existing source with new state
+		            Optional<GrocerySource> existingSourceState = grocerySourceRepository.findById(newStateId);
+		            
+		            if(existingSourceState.isPresent()) {
+		            	existingGrocery.setGrocerySource(existingSourceState.get());
+		            	
+		        }else {
+		        	GrocerySource newSource = new GrocerySource();
+		        	newSource.setSource_id(newStateId);
+		        	newSource.setStateName(updatedGrocery.getGrocerySource().getStateName());
+		        	grocerySourceRepository.save(newSource);
+		        	existingGrocery.setGrocerySource(newSource);
+		        }
+
+		         
+			 
+		 }
+		        
+		     // Save the updated grocery and return it
+		         return groceryInfoRepository.save(existingGrocery);
+		     
+		 
+	 }else {
+		// Throw an error if the grocery with the given ID is not found
+	        throw new RuntimeException("Grocery not found with ID: " + id);
+
+	 }
+		
+	 
+	  
+}
+	 
+	 
+	 public Boolean deleteGroceryById(int id) {
+		 try {
+		        // Check if the grocery exists before deleting
+		        Optional<GroceryInfo> groceryToDelete = groceryInfoRepository.findById(id);
+
+		        if (groceryToDelete.isPresent()) {
+		            // Delete the grocery using the repository
+		            groceryInfoRepository.delete(groceryToDelete.get());
+		            return true;
+		        } else {
+		            // Handle the case where the grocery was not found
+		            System.out.println("Grocery with ID " + id + " not found");  // Replace with logging
+		            
+		            return false;
+		        }
+		    } catch (Exception error) {
+		        // Handle any errors that may occur during deletion
+		        System.out.println("Error deleting grocery: " + error.getMessage());  // Replace with logging
+		        throw new RuntimeException("Failed to delete grocery", error);  // Rethrow for further handling
+		    }
+		 
+	 }
+	 
+	 
+}
+
+
+----------------------------------------
+
+package com.app.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.model.GrocerySource;
+import com.app.service.GrocerySourceService;
+
+@RestController
+@RequestMapping("/api/states")
+public class GrocerySourceController {
+	
+	@Autowired
+	
+	GrocerySourceService gorcerySourceService;
+	
+	
+	
+	@GetMapping()
+public List<GrocerySource>  getAllStates(){
+		
+		List<GrocerySource> allStates = gorcerySourceService.getAllState();
+		
+		return allStates;
+	}
+	
+}
+---------------------------------------------------
+
+
+package com.app.model;
+import jakarta.persistence.Column;
+//
+//import java.util.List;
+//
+//import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+//import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+
+
+@Entity
+@Table(name = "GROCERY_SOURCE")
+public class GrocerySource {
+
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="SOURCE_ID")
+	private Integer source_id;
+
+	@Column(name="STATE_NAME")
+	private String stateName;
+
+//	@OneToMany(mappedBy = "grocerySource", cascade = CascadeType.ALL)
+//	private List<GroceryInfo> groceryInfos;
+//
+//	public List<GroceryInfo> getGroceryInfos() {
+//		return groceryInfos;
+//	}
+//
+//	public void setGroceryInfos(List<GroceryInfo> groceryInfos) {
+//		this.groceryInfos = groceryInfos;
+//	}
+
+
+
+	public String getStateName() {
+		return stateName;
+	}
+
+	public Integer getSource_id() {
+		return source_id;
+	}
+
+	public void setSource_id(Integer source_id) {
+		this.source_id = source_id;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+
+	@Override
+	public String toString() {
+		return "GrocerySource [source_id=" + source_id + ", stateName=" + stateName + "]";
+	}
+
+	
+
+}
+
+-------------------------------------------------------
+
+package com.app.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.app.model.GrocerySource;
+
+public interface GrocerySourceRepository extends JpaRepository<GrocerySource, Integer> {
+
+	
+	@Query("SELECT gs FROM GrocerySource gs WHERE gs.stateName = :stateName")
+	GrocerySource findByName(@Param("stateName") String stateName);
+}
+
+-----------------------------------------------------
+
+package com.app.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.model.GrocerySource;
+import com.app.repository.GrocerySourceRepository;
+
+
+
+
+
+@Service
+public class GrocerySourceService  {
+	
+	
+	@Autowired
+	GrocerySourceRepository grocerySourceService;
+	
+	
+	public List<GrocerySource>  getAllState(){
+		
+		List<GrocerySource> allStates = grocerySourceService.findAll();
+		
+		return allStates;
+	}
+	
+	
+	
+
+}
+---------------------------------------------------------------
+
+package com.app.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.model.GroceryInfo;
+import com.app.service.GroceryAmountsService;
+import com.app.service.GroceryInfoService;
+import com.app.service.GrocerySourceService;
+
+@RestController
+@RequestMapping("/api/groceries")
+@CrossOrigin
+public class GroceryInfoController {
+
+	@Autowired
+	private GroceryInfoService groceryInfoService;
+
+	@Autowired
+	private GroceryAmountsService groceryAmountService;
+
+	@Autowired
+	private GrocerySourceService grocerySourceservice;
+
+	
+	@GetMapping
+	
+	public ResponseEntity<List<GroceryInfo>> getAllGrocery() {
+
+		try {
+			List<GroceryInfo> groceries = groceryInfoService.getAllGroceries();
+
+			return new ResponseEntity<>(groceries, HttpStatus.OK);
+
+		} catch (Exception e) {
+
+			e.printStackTrace(); 
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping
+	public ResponseEntity<GroceryInfo> addGrocery(@RequestBody GroceryInfo grocery) {
+		try {
+			
+			GroceryInfo savedGrocery = groceryInfoService.addGrocery(grocery);
+
+		
+			return ResponseEntity.ok(savedGrocery); 
+		} catch (Exception error) {
+			
+			System.out.println("Error adding grocery: " + error.getMessage());
+
+	
+			return ResponseEntity.status(500).build(); 
+		}
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<GroceryInfo> getGroceryById(@PathVariable int id) {
+
+		try {
+
+			GroceryInfo groceryById = groceryInfoService.getGroceryById(id);
+
+			if (groceryById != null) {
+				return ResponseEntity.ok(groceryById); 
+			} else {
+				return ResponseEntity.notFound().build(); 
+			}
+
+		} catch (Exception error) {
+			
+			System.out.println("Error while Feteching the data" + error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+
+		}
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<GroceryInfo> updateMyGrocery(@PathVariable int id, @RequestBody GroceryInfo updatedGrocery) {
+
+		try {
+
+			GroceryInfo savedGrocery = groceryInfoService.updateGrocery(id, updatedGrocery);
+
+			return ResponseEntity.ok(savedGrocery);
+
+		} catch (Exception error) {
+			// Print the error for now (replace with logging later)
+			System.out.println("Error updating grocery: " + error.getMessage());
+			return ResponseEntity.status(500).build(); // Return 500 for internal server error
+
+		}
+
+	}
+	
+
+   
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteGrocery(@PathVariable int id){
+		try {
+			if(groceryInfoService.deleteGroceryById(id)) {
+				return ResponseEntity.ok("Succesfully deleted the item with item_id:"+id); 
+			}else {
+				return ResponseEntity.status(404).body("Grocery ID:"+id +" Does not Exist!");
+			}
+			
+			
+			
+		}catch(Exception error) {
+			
+		
+			System.out.println("Error while deleting the grocery:"+ error.getMessage());
+			
+			return ResponseEntity.status(500).build();
+		}
+	}
+	
+	
+
+}
+-----------------------------
