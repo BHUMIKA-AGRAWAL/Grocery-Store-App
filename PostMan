@@ -1,0 +1,15 @@
+{
+        
+        "groceryName": "toomatar",
+        "groceryType": "vegetables",
+        "costPerItem": 40.0,
+        "groceryAmounts": {
+            
+            "itemsAvailable": 6
+            
+        },
+        "grocerySource": {
+            
+            "source_id": 2
+        }
+    }
